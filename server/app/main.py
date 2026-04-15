@@ -5,7 +5,7 @@ from loguru import logger
 
 from app.core.config import settings
 from app.core.database import engine, Base
-from app.api.routes import resources, tasks, fraud, chat
+from app.api.routes import resources, tasks, fraud, chat, prediction, allocation
 
 
 @asynccontextmanager
@@ -40,6 +40,18 @@ app.include_router(resources.router, prefix=settings.API_PREFIX, tags=["Resource
 app.include_router(tasks.router, prefix=settings.API_PREFIX, tags=["Tasks"])
 app.include_router(fraud.router, prefix=settings.API_PREFIX, tags=["Fraud Detection"])
 app.include_router(chat.router, prefix=settings.API_PREFIX, tags=["Chat"])
+
+# Computing Network Collaborative Prediction & Allocation
+app.include_router(
+    prediction.router,
+    prefix=f"{settings.API_PREFIX}/prediction",
+    tags=["算力预测"],
+)
+app.include_router(
+    allocation.router,
+    prefix=f"{settings.API_PREFIX}/allocation",
+    tags=["算力分配"],
+)
 
 
 @app.get("/health", tags=["Health"])

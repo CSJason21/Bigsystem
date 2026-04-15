@@ -102,3 +102,6 @@ async def get_demand_prediction(period: str = "daily"):
             for i in range(n)
         ],
     }
+
+
+

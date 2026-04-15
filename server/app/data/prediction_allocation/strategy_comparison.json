@@ -1,0 +1,27 @@
+{
+  "xData": [
+    "Round Robin",
+    "Random",
+    "Greedy",
+    "RL Scheduler"
+  ],
+  "avg_completion_time": [
+    488329,
+    456824,
+    378061,
+    326866
+  ],
+  "resource_utilization": [
+    45,
+    48,
+    55,
+    62
+  ],
+  "load_balance_score": [
+    72,
+    68,
+    83,
+    91
+  ],
+  "updated_at": 1775026839
+}

@@ -1,0 +1,25 @@
+{
+  "version": "prediction-allocation-v1",
+  "generated_at": "2026-04-01T07:00:40.191Z",
+  "generated_by": "scripts/generate_prediction_allocation_dataset.js",
+  "source_files": [
+    "clusterdata-master/cluster-trace-gpu-v2023/csv/openb_node_list_gpu_node.csv",
+    "clusterdata-master/cluster-trace-gpu-v2023/csv/openb_pod_list_default.csv",
+    "clusterdata-master/cluster-trace-gpu-v2020/simulator/traces/pai/pai_job_duration_estimate_100K.csv"
+  ],
+  "derived_counts": {
+    "source_nodes": 1213,
+    "source_pods": 8152,
+    "selected_nodes": 18,
+    "selected_allocations": 28
+  },
+  "synthetic_dimensions": [
+    "pseudo ip mapping",
+    "allocated bandwidth",
+    "allocated storage",
+    "node traffic flow",
+    "load balance score",
+    "strategy comparison",
+    "time-series prediction smoothing"
+  ]
+}

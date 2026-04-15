@@ -1,118 +1,187 @@
-
 import React, { useEffect, useRef } from 'react';
 import { Card } from 'antd';
+
+export interface TopologyNode {
+  id: string;
+  label: string;
+  type?: string;
+  size?: number;
+  style?: Record<string, unknown>;
+}
+
+export interface TopologyEdge {
+  source: string;
+  target: string;
+  style?: Record<string, unknown>;
+}
 
 interface TopologyGraphProps {
   title?: string;
   height?: number;
-  nodes?: { id: string; label: string; type?: string }[];
-  edges?: { source: string; target: string }[];
+  nodes?: TopologyNode[];
+  edges?: TopologyEdge[];
+  showCard?: boolean;
+  layoutType?: 'force' | 'dagre';
 }
 
 /**
- * Network topology visualization component using AntV G6
- * Renders a force-directed graph for computing network topology
+ * 基于 AntV G6 的拓扑图组件。
+ * 支持按节点类型和负载自定义尺寸，用于中后台网络监控场景。
  */
 const TopologyGraph: React.FC<TopologyGraphProps> = ({
   title = '网络拓扑结构',
   height = 400,
   nodes = [
-    { id: 'cloud', label: '云中心', type: 'cloud' },
-    { id: 'edge1', label: '边缘节点1', type: 'edge' },
-    { id: 'edge2', label: '边缘节点2', type: 'edge' },
-    { id: 'edge3', label: '边缘节点3', type: 'edge' },
-    { id: 'client1', label: '客户端1', type: 'client' },
-    { id: 'client2', label: '客户端2', type: 'client' },
-    { id: 'client3', label: '客户端3', type: 'client' },
-    { id: 'client4', label: '客户端4', type: 'client' },
-    { id: 'client5', label: '客户端5', type: 'client' },
-    { id: 'client6', label: '客户端6', type: 'client' },
+    { id: 'control', label: '调度中心', type: 'management', size: 56 },
+    { id: 'sense-1', label: '感知节点 1', type: 'sensing', size: 40 },
+    { id: 'sense-2', label: '感知节点 2', type: 'sensing', size: 40 },
+    { id: 'compute-1', label: '算力节点 1', type: 'compute', size: 30 },
+    { id: 'compute-2', label: '算力节点 2', type: 'compute', size: 32 },
+    { id: 'compute-3', label: '算力节点 3', type: 'compute', size: 28 },
   ],
   edges = [
-    { source: 'cloud', target: 'edge1' },
-    { source: 'cloud', target: 'edge2' },
-    { source: 'cloud', target: 'edge3' },
-    { source: 'edge1', target: 'client1' },
-    { source: 'edge1', target: 'client2' },
-    { source: 'edge2', target: 'client3' },
-    { source: 'edge2', target: 'client4' },
-    { source: 'edge3', target: 'client5' },
-    { source: 'edge3', target: 'client6' },
+    { source: 'control', target: 'sense-1' },
+    { source: 'control', target: 'sense-2' },
+    { source: 'sense-1', target: 'compute-1' },
+    { source: 'sense-1', target: 'compute-2' },
+    { source: 'sense-2', target: 'compute-3' },
   ],
+  showCard = true,
+  layoutType = 'force',
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const graphRef = useRef<any>(null);
 
   useEffect(() => {
-    if (!containerRef.current) return;
+    if (!containerRef.current) {
+      return undefined;
+    }
 
-    // Dynamic import for G6 to avoid SSR issues
+    let disposed = false;
+
     import('@antv/g6').then((G6) => {
+      if (disposed || !containerRef.current) {
+        return;
+      }
+
       if (graphRef.current) {
         graphRef.current.destroy();
       }
 
       const colorMap: Record<string, string> = {
+        management: '#1677ff',
+        sensing: '#13c2c2',
+        compute: '#7c3aed',
         cloud: '#1677ff',
         edge: '#52c41a',
         client: '#faad14',
       };
 
       const sizeMap: Record<string, number> = {
+        management: 56,
+        sensing: 40,
+        compute: 30,
         cloud: 50,
         edge: 35,
         client: 25,
       };
 
       const graph = new G6.Graph({
-        container: containerRef.current!,
-        width: containerRef.current!.clientWidth,
-        height: height - 60,
-        layout: {
-          type: 'force',
-          preventOverlap: true,
-          nodeStrength: -200,
-          edgeStrength: 0.5,
-        },
+        container: containerRef.current,
+        width: containerRef.current.clientWidth,
+        height: height - (showCard ? 60 : 0),
+        layout: layoutType === 'dagre'
+          ? {
+            type: 'dagre',
+            rankdir: 'TB',
+            align: 'UL',
+            nodesep: 36,
+            ranksep: 72,
+          }
+          : {
+            type: 'force',
+            preventOverlap: true,
+            nodeStrength: -220,
+            edgeStrength: 0.5,
+          },
         defaultNode: {
           type: 'circle',
-          labelCfg: { position: 'bottom', style: { fontSize: 11, fill: '#666' } },
+          labelCfg: {
+            position: 'bottom',
+            style: {
+              fontSize: 11,
+              fill: '#8ea3b5',
+            },
+          },
         },
         defaultEdge: {
-          style: { stroke: '#d9d9d9', lineWidth: 2, endArrow: true },
+          style: {
+            stroke: '#3b4f66',
+            lineWidth: 1.5,
+            endArrow: true,
+            opacity: 0.8,
+          },
         },
         modes: {
           default: ['drag-canvas', 'zoom-canvas', 'drag-node'],
         },
+        fitView: true,
+        fitViewPadding: [16, 20, 16, 20],
       });
 
-      const graphData = {
-        nodes: nodes.map((n) => ({
-          ...n,
-          size: sizeMap[n.type || 'client'] || 25,
-          style: { fill: colorMap[n.type || 'client'] || '#faad14', stroke: '#fff', lineWidth: 2 },
+      graph.data({
+        nodes: nodes.map((node) => ({
+          ...node,
+          size: node.size ?? sizeMap[node.type || 'compute'] ?? 28,
+          style: {
+            fill: colorMap[node.type || 'compute'] ?? '#7c3aed',
+            stroke: '#dce8f3',
+            lineWidth: 2,
+            shadowColor: 'rgba(22, 119, 255, 0.24)',
+            shadowBlur: 18,
+            ...(node.style ?? {}),
+          },
         })),
-        edges: edges.map((e) => ({ ...e })),
-      };
+        edges: edges.map((edge) => ({
+          ...edge,
+          style: {
+            stroke: '#3b4f66',
+            lineWidth: 1.5,
+            opacity: 0.8,
+            ...(edge.style ?? {}),
+          },
+        })),
+      });
 
-      graph.data(graphData);
       graph.render();
       graphRef.current = graph;
     });
 
     return () => {
+      disposed = true;
       if (graphRef.current) {
         graphRef.current.destroy();
         graphRef.current = null;
       }
     };
-  }, [nodes, edges, height]);
+  }, [edges, height, layoutType, nodes, showCard]);
 
-  return (
-    <Card title={title}>
-      <div ref={containerRef} style={{ width: '100%', height: height - 60 }} />
-    </Card>
+  const content = (
+    <div
+      ref={containerRef}
+      style={{
+        width: '100%',
+        height: height - (showCard ? 60 : 0),
+        minHeight: height - (showCard ? 60 : 0),
+      }}
+    />
   );
+
+  if (!showCard) {
+    return content;
+  }
+
+  return <Card title={title}>{content}</Card>;
 };
 
 export default TopologyGraph;

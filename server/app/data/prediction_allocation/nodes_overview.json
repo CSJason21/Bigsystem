@@ -1,0 +1,38 @@
+{
+  "process_total": 5200,
+  "port_total": 1245,
+  "host_total": 36,
+  "top_nodes": [
+    {
+      "node_id": "openb-node-0025",
+      "hostname": "gpu-cluster-14",
+      "process_count": 440,
+      "port_count": 77
+    },
+    {
+      "node_id": "openb-node-0071",
+      "hostname": "gpu-cluster-15",
+      "process_count": 439,
+      "port_count": 76
+    },
+    {
+      "node_id": "openb-node-0035",
+      "hostname": "gpu-cluster-01",
+      "process_count": 408,
+      "port_count": 98
+    },
+    {
+      "node_id": "openb-node-0002",
+      "hostname": "gpu-cluster-13",
+      "process_count": 375,
+      "port_count": 88
+    },
+    {
+      "node_id": "openb-node-0057",
+      "hostname": "gpu-cluster-04",
+      "process_count": 369,
+      "port_count": 98
+    }
+  ],
+  "updated_at": 1775026839
+}

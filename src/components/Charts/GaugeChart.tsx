@@ -23,6 +23,10 @@ const GaugeChart: React.FC<GaugeChartProps> = ({
   suffix = '%',
   height = 200,
 }) => {
+  const detailFontSize = height <= 130 ? 16 : height <= 170 ? 18 : 20;
+  const safeValue = Number.isFinite(value) ? Math.min(max, Math.max(0, value)) : 0;
+  const displayValue = Number.isInteger(safeValue) ? safeValue : Number(safeValue.toFixed(1));
+
   const option: EChartsOption = useMemo(() => ({
     series: [
       {
@@ -39,17 +43,17 @@ const GaugeChart: React.FC<GaugeChartProps> = ({
         axisLabel: { show: false },
         title: { show: true, offsetCenter: [0, '70%'], fontSize: 14, color: '#666' },
         detail: {
-          fontSize: 24,
+          fontSize: detailFontSize,
           fontWeight: 'bold',
-          offsetCenter: [0, '30%'],
+          offsetCenter: [0, '34%'],
           formatter: `{value}${suffix}`,
           color,
         },
-        data: [{ value, name: title }],
+        data: [{ value: displayValue, name: title }],
         itemStyle: { color },
       },
     ],
-  }), [title, value, max, color, suffix]);
+  }), [title, displayValue, max, color, suffix, detailFontSize]);
 
   return <ReactECharts option={option} style={{ height }} />;
 };

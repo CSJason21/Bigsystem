@@ -1,0 +1,54 @@
+.prediction-allocation-page {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.prediction-allocation-toolbar {
+  width: 100%;
+  justify-content: flex-start;
+}
+
+.prediction-allocation-toolbar-block {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.prediction-allocation-now-tag {
+  margin-inline-start: auto;
+  padding: 6px 10px;
+  border-radius: 999px;
+}
+
+.prediction-allocation-inner-card {
+  height: 100%;
+}
+
+.prediction-allocation-stat-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 8px;
+}
+
+.prediction-allocation-disk-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+
+.prediction-allocation-page .ant-card-head-title {
+  font-weight: 700;
+}
+
+.prediction-allocation-page .ant-descriptions-bordered .ant-descriptions-item-label {
+  width: 108px;
+}
+
+@media (max-width: 1199px) {
+  .prediction-allocation-now-tag {
+    margin-inline-start: 0;
+  }
+}

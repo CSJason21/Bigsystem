@@ -43,3 +43,13 @@ export const getFraudUsers = (params?: any) => api.get('/fraud/users', { params 
 
 // Chat
 export const sendChatMessage = (message: string) => api.post('/chat', { message });
+
+// === 算力网络协同预测与分配 API ===
+export const getDemandPrediction = (period: 'daily' | 'monthly') =>
+  api.get(period === 'daily' ? '/prediction/daily' : '/prediction/monthly');
+
+export const getAllocationResults = () =>
+  api.get('/allocation/results');
+
+export const getStrategyComparison = () =>
+  api.get('/allocation/strategy-comparison');
