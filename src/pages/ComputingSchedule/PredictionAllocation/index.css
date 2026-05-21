@@ -25,13 +25,6 @@
   height: 100%;
 }
 
-.prediction-allocation-stat-foot {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-top: 8px;
-}
-
 .prediction-allocation-disk-row {
   display: flex;
   align-items: center;
@@ -39,16 +32,247 @@
   margin-bottom: 6px;
 }
 
+.prediction-allocation-overview-row {
+  display: grid;
+  grid-template-columns: minmax(260px, 3fr) minmax(200px, 4fr) minmax(200px, 4fr);
+  gap: 12px;
+  align-items: stretch;
+}
+
+.prediction-allocation-overview-kpi .ant-card-body {
+  padding: 14px 18px;
+}
+
+.prediction-allocation-kpi-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.prediction-allocation-kpi-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.prediction-allocation-kpi-label {
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+.prediction-allocation-kpi-value {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  font-size: 16px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.prediction-allocation-kpi-divider {
+  height: 1px;
+  background: rgba(148, 163, 184, 0.18);
+  margin: 2px 0;
+}
+
+.prediction-allocation-overview-chart .ant-card-body {
+  padding: 10px 14px;
+}
+
+.prediction-allocation-topology-panel {
+  height: 100%;
+}
+
+.prediction-allocation-topology-panel .ant-card-head {
+  align-items: flex-start;
+}
+
+.prediction-allocation-topology-panel .ant-card-head-title {
+  padding-top: 4px;
+}
+
+.prediction-allocation-topology-workspace {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(280px, 3fr);
+  gap: 16px;
+  align-items: stretch;
+}
+
+.prediction-allocation-topology-stage {
+  min-width: 0;
+  min-height: 380px;
+  padding: 16px;
+  border-radius: 18px;
+  border: 1px solid rgba(148, 163, 184, 0.18);
+  background: #ffffff;
+}
+
+.prediction-allocation-topology-info {
+  height: 100%;
+}
+
+.prediction-allocation-topology-info .ant-card-body {
+  height: 100%;
+  overflow-y: auto;
+}
+
+.prediction-allocation-tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.prediction-allocation-event-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.prediction-allocation-event-item {
+  display: flex;
+  gap: 12px;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: rgba(15, 23, 42, 0.03);
+  border: 1px solid rgba(148, 163, 184, 0.14);
+}
+
+.prediction-allocation-event-title {
+  margin-bottom: 4px;
+  font-weight: 600;
+}
+
+.prediction-allocation-log-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-height: 100%;
+}
+
+.prediction-allocation-log-stream {
+  overflow-y: auto;
+  max-height: 480px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 8px 10px;
+  border-radius: 10px;
+  background: rgba(15, 23, 42, 0.03);
+  border: 1px solid rgba(148, 163, 184, 0.12);
+  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+  font-size: 12px;
+}
+
+.prediction-allocation-log-line {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  line-height: 1.6;
+}
+
+.prediction-allocation-log-time {
+  font-size: 11px;
+  flex-shrink: 0;
+}
+
+.prediction-allocation-log-phase {
+  flex-shrink: 0;
+  font-size: 10px;
+  line-height: 1;
+  padding: 1px 5px;
+  margin: 0;
+}
+
+.prediction-allocation-log-msg {
+  font-size: 12px;
+  word-break: break-all;
+}
+
+.prediction-allocation-log-footer {
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+  padding-top: 4px;
+  border-top: 1px solid rgba(148, 163, 184, 0.12);
+}
+
+.prediction-allocation-task-section {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.prediction-allocation-task-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.prediction-allocation-task-item {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 6px 8px;
+  border-radius: 8px;
+  background: rgba(15, 23, 42, 0.03);
+  border: 1px solid rgba(148, 163, 184, 0.12);
+}
+
+.prediction-allocation-task-head {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.prediction-allocation-task-res {
+  display: flex;
+  gap: 10px;
+  padding-left: 4px;
+}
+
 .prediction-allocation-page .ant-card-head-title {
   font-weight: 700;
 }
 
 .prediction-allocation-page .ant-descriptions-bordered .ant-descriptions-item-label {
-  width: 108px;
+  width: 80px;
+}
+
+.prediction-allocation-page .ant-descriptions-bordered .ant-descriptions-item-container {
+  padding: 4px 0;
+}
+
+.prediction-allocation-page .ant-descriptions-small .ant-descriptions-item-label {
+  font-size: 12px;
+}
+
+.prediction-allocation-page .ant-descriptions-small .ant-descriptions-item-content {
+  font-size: 12px;
 }
 
 @media (max-width: 1199px) {
   .prediction-allocation-now-tag {
     margin-inline-start: 0;
+  }
+
+  .prediction-allocation-overview-row {
+    grid-template-columns: 1fr;
+  }
+
+  .prediction-allocation-topology-workspace {
+    grid-template-columns: 1fr;
+  }
+
+  .prediction-allocation-topology-stage {
+    min-height: 360px;
+  }
+}
+
+@media (max-width: 767px) {
+  .prediction-allocation-event-item {
+    flex-direction: column;
   }
 }

@@ -163,6 +163,73 @@ export type TrafficLinesResponse = {
   updated_at: number;
 };
 
+export type PerspectiveResponse = {
+  perspectives: Array<{
+    value: string;
+    label: string;
+    kind: 'global' | 'region' | 'province' | 'node';
+    region_id?: string | null;
+    node_id?: string | null;
+    nodeIds?: string[];
+    is_default?: boolean;
+  }>;
+  updated_at: number;
+};
+
+export type AllocationKpiResponse = {
+  avgDelay: number;
+  delayDelta: number;
+  loadStd: number;
+  loadStdDelta: number;
+  successTasks: number;
+  successTasksDelta: number;
+  avgBandwidth: number;
+  avgGpuUsage: number;
+  totalGpuMemory: number;
+  updated_at?: number;
+};
+
+export type TopLoadResponse = {
+  items: Array<{ name: string; value: number; predicted: number }>;
+  updated_at: number;
+};
+
+export type TaskTypeStatsResponse = {
+  items: Array<{ name: string; value: number }>;
+  updated_at: number;
+};
+
+export type TopologyViewResponse = {
+  nodes: any[];
+  edges: any[];
+  events: Array<{ title: string; description: string; color: string }>;
+  rerouteCount: number;
+  offlineCount: number;
+  newCount: number;
+  updated_at: number;
+};
+
+export type ScheduleLogsResponse = {
+  logs: Array<{ time: string; phase: string; message: string; severity?: string }>;
+  updated_at: number;
+};
+
+export type ActiveTasksResponse = {
+  tasks: Array<{
+    id: string;
+    name: string;
+    type: string;
+    status: string;
+    targetNodeId?: string;
+    matchScore?: number;
+    estimatedLatency?: number;
+    cpu: number;
+    memory: number;
+    gpu: number;
+  }>;
+  updated_at: number;
+};
+
 // 注意：api.ts 的响应拦截器会返回 response.data，因此运行时这里得到的是“纯数据对象”，
 // 但 axios 的类型不会自动跟随拦截器。为消除 TS 的 AxiosResponse 误判，这里做类型断言。
 export const getDayDemandPrediction = async (): Promise<DayPredictionResponse> =>
@@ -197,4 +264,25 @@ export const getTrafficSankey = async (): Promise<TrafficSankeyResponse> =>
 
 export const getTrafficLines = async (period: string = '6h'): Promise<TrafficLinesResponse> =>
   (await api.get<TrafficLinesResponse>('/allocation/traffic/lines', { params: { period } })) as unknown as TrafficLinesResponse;
+
+export const getPerspectives = async (): Promise<PerspectiveResponse> =>
+  (await api.get<PerspectiveResponse>('/allocation/perspectives')) as unknown as PerspectiveResponse;
+
+export const getAllocationKpi = async (viewId: string): Promise<AllocationKpiResponse> =>
+  (await api.get<AllocationKpiResponse>('/allocation/kpi', { params: { view_id: viewId } })) as unknown as AllocationKpiResponse;
+
+export const getTopLoad = async (viewId: string): Promise<TopLoadResponse> =>
+  (await api.get<TopLoadResponse>('/allocation/top-load', { params: { view_id: viewId } })) as unknown as TopLoadResponse;
+
+export const getTaskTypeStats = async (viewId: string): Promise<TaskTypeStatsResponse> =>
+  (await api.get<TaskTypeStatsResponse>('/allocation/task-type-stats', { params: { view_id: viewId } })) as unknown as TaskTypeStatsResponse;
+
+export const getTopologyView = async (viewId: string): Promise<TopologyViewResponse> =>
+  (await api.get<TopologyViewResponse>('/allocation/topology/view', { params: { view_id: viewId } })) as unknown as TopologyViewResponse;
+
+export const getScheduleLogs = async (vertexId: string): Promise<ScheduleLogsResponse> =>
+  (await api.get<ScheduleLogsResponse>('/allocation/schedule/logs', { params: { vertex_id: vertexId } })) as unknown as ScheduleLogsResponse;
+
+export const getActiveTasks = async (nodeId: string): Promise<ActiveTasksResponse> =>
+  (await api.get<ActiveTasksResponse>('/allocation/tasks/active', { params: { node_id: nodeId } })) as unknown as ActiveTasksResponse;
 

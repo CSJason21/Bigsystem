@@ -78,6 +78,37 @@ Reason for this combination:
 
 ## 4. Generated data contract
 
+## 5. Prediction Allocation Topology UI Contract
+
+For `src/pages/ComputingSchedule/PredictionAllocation/index.tsx`, the global and region views now assume a topology-first interaction model.
+
+Key frontend expectations:
+
+- keep the top KPI row compact
+- render the main result area as a split layout instead of a full-width topology strip
+- the topology workspace uses a nested split:
+  - topology canvas on the left
+  - an info/legend card on the right
+- `TopologyGraph` supports a `predictive` variant for this page only
+
+Topology semantics that should be preserved:
+
+- solid inner circle = current real load
+- dashed outer ring = predicted load for the next 10 minutes
+- solid edge with animated flow marker = currently executing task flow
+- dashed edge with arrow and label = predicted rerouting planned by the scheduling policy
+- offline nodes stay in layout, become gray, and show `[Offline]`
+- newly joined nodes stay in layout, show `[New]`, and use green-highlight styling
+
+Interaction expectations:
+
+- in prediction-allocation global/region view, mouse wheel should scroll the page rather than zoom the graph
+- hover should reveal node summary information
+- click should drive the topology-side info card state
+- layout should remain stable and hierarchical (`dagre`), not pure force-directed
+- topology canvas should use a light visual style rather than a dark-background demo style
+- node positions should remain stable across mock refreshes; refresh should mainly update status, labels, and routing state
+
 Generated files are stored in:
 
 - `server/app/data/prediction_allocation/`

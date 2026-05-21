@@ -52,4 +52,23 @@ class Settings(BaseSettings):
 
         return value
 
+    @field_validator("DATABASE_URL", mode="before")
+    @classmethod
+    def normalize_database_url(cls, value):
+        if not value:
+            return "sqlite:///./fl_system.db"
+
+        if not isinstance(value, str):
+            return value
+
+        normalized = value.strip()
+
+        if normalized.startswith("postgres://"):
+            normalized = "postgresql://" + normalized[len("postgres://"):]
+
+        if normalized.startswith("postgresql://"):
+            normalized = "postgresql+psycopg://" + normalized[len("postgresql://"):]
+
+        return normalized
+
 settings = Settings()

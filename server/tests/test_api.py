@@ -126,3 +126,7 @@ class TestPredictionAllocationAPI:
         assert first_dashboard["node_id"] != second_dashboard["node_id"]
         assert first_dashboard["cpu_total_usage"] != second_dashboard["cpu_total_usage"]
         assert first_history["cpu_usage"] != second_history["cpu_usage"]
+
+    def test_missing_node_returns_404(self):
+        response = client.get("/api/allocation/nodes/not-a-real-node/dashboard")
+        assert response.status_code == 404
