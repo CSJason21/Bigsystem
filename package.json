@@ -1,0 +1,45 @@
+{
+  "name": "fl-system",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Reinforced Federated Learning Prototype System & Typical Applications",
+  "engines": {
+    "node": ">=20 <21"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "lint": "eslint src --ext .ts,.tsx"
+  },
+  "dependencies": {
+    "@ant-design/icons": "^5.2.6",
+    "@ant-design/pro-components": "^2.6.0",
+    "@ant-design/pro-layout": "^7.17.0",
+    "@antv/g6": "^4.8.24",
+    "@xyflow/react": "^12.10.2",
+    "antd": "^5.12.0",
+    "axios": "^1.6.2",
+    "classnames": "^2.3.2",
+    "dayjs": "^1.11.10",
+    "echarts": "^5.4.3",
+    "echarts-for-react": "^3.0.2",
+    "echarts-wordcloud": "^2.1.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.20.0",
+    "zustand": "^4.4.7"
+  },
+  "devDependencies": {
+    "@types/node": "^25.5.0",
+    "@types/react": "^18.2.43",
+    "@types/react-dom": "^18.2.17",
+    "@typescript-eslint/eslint-plugin": "^6.13.2",
+    "@typescript-eslint/parser": "^6.13.2",
+    "@vitejs/plugin-react": "^4.2.1",
+    "eslint": "^8.55.0",
+    "playwright": "^1.60.0",
+    "typescript": "^5.3.3",
+    "vite": "^5.0.8"
+  }
+}

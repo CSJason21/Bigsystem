@@ -1,0 +1,353 @@
+.resource-sensing-page {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* ===== 顶部入口卡片 ===== */
+.resource-sensing-entry-card {
+  border-color: rgba(148, 163, 184, 0.18);
+}
+
+.resource-sensing-entry-card .ant-card-body {
+  padding: 8px 12px;
+}
+
+.resource-sensing-entry-bar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-left: 11px;
+}
+
+.resource-sensing-entry-bar--green {
+  position: absolute;
+  left: 0;
+  top: -8px;
+  bottom: -8px;
+  width: 3px;
+  border-radius: 2px;
+  background: #52c41a;
+}
+
+.resource-sensing-entry-content {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+  min-width: 0;
+}
+
+.resource-sensing-entry-icon {
+  flex: 0 0 auto;
+  width: 30px;
+  height: 30px;
+  padding: 6px;
+  border-radius: 8px;
+  color: #52c41a;
+  background: rgba(82, 196, 26, 0.1);
+}
+
+.resource-sensing-entry-content span {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.resource-sensing-entry-content strong {
+  display: block;
+  font-size: 12px;
+  font-weight: 400;
+  color: #64748b;
+}
+
+.resource-sensing-insight-card {
+  border-color: rgba(148, 163, 184, 0.24);
+  overflow: hidden;
+}
+
+.resource-sensing-insight-hero {
+  display: grid;
+  gap: 5px;
+  padding: 10px 14px;
+  background: #fbfcfe;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.16);
+}
+
+.resource-sensing-insight-hero > span,
+.resource-sensing-insight-item > span {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  min-height: 22px;
+  padding: 2px 8px;
+  border-radius: 6px;
+  color: #334155;
+  font-size: 12px;
+  font-weight: 700;
+  background: #f1f5f9;
+  border: 1px solid rgba(148, 163, 184, 0.22);
+}
+
+.resource-sensing-insight-hero strong {
+  color: #0f172a;
+  font-size: 15px;
+  line-height: 1.35;
+  font-weight: 750;
+}
+
+.resource-sensing-insight-hero-tokens,
+.resource-sensing-insight-item strong {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 8px;
+  align-items: center;
+}
+
+.resource-sensing-insight-grid {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 1px;
+  background: rgba(148, 163, 184, 0.12);
+}
+
+.resource-sensing-insight-item {
+  display: grid;
+  align-content: start;
+  gap: 6px;
+  min-height: 70px;
+  padding: 9px 12px 10px;
+  background: #ffffff;
+}
+
+.resource-sensing-insight-item > span {
+  margin-bottom: 2px;
+}
+
+.resource-sensing-insight-item > span::before {
+  content: "";
+  width: 3px;
+  height: 12px;
+  margin-right: 6px;
+  border-radius: 999px;
+  background: #94a3b8;
+}
+
+.resource-sensing-insight-item--good > span::before {
+  background: #16a34a;
+}
+
+.resource-sensing-insight-item--risk > span::before {
+  background: #ef4444;
+}
+
+.resource-sensing-insight-item strong {
+  color: #0f172a;
+  font-size: 12px;
+  line-height: 1.4;
+  font-weight: 650;
+}
+
+.resource-sensing-insight-item--good strong {
+  color: #0f5132;
+}
+
+.resource-sensing-insight-item--risk strong {
+  color: #7f1d1d;
+}
+
+.resource-sensing-insight-token,
+.resource-sensing-insight-empty {
+  display: inline-flex;
+  align-items: center;
+  max-width: 100%;
+  min-height: 18px;
+  padding: 0;
+  border-radius: 0;
+  color: #0f172a;
+  font-size: 12px;
+  font-weight: 650;
+  line-height: 1.25;
+  background: transparent;
+  border: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.resource-sensing-insight-token:not(:last-child)::after {
+  content: "、";
+  color: #94a3b8;
+  font-weight: 400;
+}
+
+.resource-sensing-insight-hero-tokens .resource-sensing-insight-token {
+  color: #166534;
+  background: transparent;
+  border: 0;
+}
+
+.resource-sensing-insight-item--good .resource-sensing-insight-token {
+  color: #166534;
+  background: transparent;
+  border: 0;
+}
+
+.resource-sensing-insight-item--risk .resource-sensing-insight-token {
+  color: #991b1b;
+  background: transparent;
+  border: 0;
+}
+
+.resource-sensing-insight-empty {
+  color: #475569;
+  background: transparent;
+}
+
+.resource-sensing-insight-token--metric {
+  gap: 6px;
+  border-radius: 0;
+}
+
+.resource-sensing-insight-token--metric b,
+.resource-sensing-insight-token--metric em {
+  min-width: 0;
+  font-style: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.resource-sensing-insight-token--metric em {
+  flex: 0 0 auto;
+  color: #2563eb;
+  font-weight: 750;
+}
+
+.resource-sensing-global-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  align-items: stretch;
+}
+
+.resource-sensing-global-card > .ant-card-head {
+  min-height: 44px;
+}
+
+.resource-sensing-global-card > .ant-card-head .ant-card-head-title {
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.resource-sensing-global-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.resource-sensing-global-card > .ant-card-body {
+  flex: 1;
+}
+
+.resource-sensing-global-card .ant-descriptions-item-label {
+  color: #334155;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.resource-sensing-global-card .ant-descriptions-item-content {
+  color: #0f172a;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+/* 节点负载 Top 榜单 */
+.resource-sensing-rank-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.resource-sensing-rank-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 6px 8px;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  background: transparent;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.resource-sensing-rank-item:hover {
+  background: rgba(22, 119, 255, 0.06);
+}
+
+.resource-sensing-rank-item--active {
+  border-color: #1677ff;
+  background: rgba(22, 119, 255, 0.1);
+}
+
+.resource-sensing-rank-no {
+  flex: 0 0 auto;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #f0f0f0;
+  color: #8c8c8c;
+  font-size: 12px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.resource-sensing-rank-no--top {
+  background: #faad14;
+  color: #fff;
+}
+
+.resource-sensing-rank-name {
+  flex: 0 0 auto;
+  width: 104px;
+  font-size: 13px;
+  color: #262626;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.resource-sensing-rank-bar {
+  flex: 1 1 auto;
+  height: 8px;
+  border-radius: 4px;
+  background: #f0f0f0;
+  overflow: hidden;
+}
+
+.resource-sensing-rank-bar-fill {
+  display: block;
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.3s, background 0.3s;
+}
+
+@media (max-width: 1200px) {
+  .resource-sensing-insight-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .resource-sensing-global-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .resource-sensing-insight-grid {
+    grid-template-columns: 1fr;
+  }
+}

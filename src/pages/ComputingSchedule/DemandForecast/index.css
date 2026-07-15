@@ -1,0 +1,214 @@
+.demand-forecast-page {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* ===== 顶部入口卡片 ===== */
+.demand-forecast-entry-card {
+  border-color: rgba(148, 163, 184, 0.18);
+}
+
+.demand-forecast-entry-card .ant-card-body {
+  padding: 8px 12px;
+}
+
+.demand-forecast-entry-bar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-left: 11px;
+}
+
+.demand-forecast-entry-bar--orange {
+  position: absolute;
+  left: 0;
+  top: -8px;
+  bottom: -8px;
+  width: 3px;
+  border-radius: 2px;
+  background: #faad14;
+}
+
+.demand-forecast-entry-content {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+  min-width: 0;
+}
+
+.demand-forecast-entry-icon {
+  flex: 0 0 auto;
+  width: 30px;
+  height: 30px;
+  padding: 6px;
+  border-radius: 8px;
+  color: #faad14;
+  background: rgba(250, 173, 20, 0.1);
+}
+
+.demand-forecast-entry-content span {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.demand-forecast-entry-content strong {
+  display: block;
+  font-size: 12px;
+  font-weight: 400;
+  color: #64748b;
+}
+
+.demand-forecast-insight-card {
+  border-color: rgba(148, 163, 184, 0.24);
+  overflow: hidden;
+}
+
+.demand-forecast-insight-hero {
+  display: grid;
+  gap: 4px;
+  padding: 10px 14px;
+  background: #fbfcfe;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.16);
+}
+
+.demand-forecast-insight-hero > span,
+.demand-forecast-insight-item > span {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  min-height: 22px;
+  padding: 2px 8px;
+  border-radius: 6px;
+  color: #334155;
+  font-size: 12px;
+  font-weight: 700;
+  background: #f1f5f9;
+  border: 1px solid rgba(148, 163, 184, 0.22);
+}
+
+.demand-forecast-insight-hero strong {
+  color: #0f172a;
+  font-size: 15px;
+  line-height: 1.35;
+  font-weight: 750;
+}
+
+.demand-forecast-insight-hero em {
+  color: #475569;
+  font-size: 12px;
+  font-style: normal;
+}
+
+.demand-forecast-insight-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 1px;
+  background: rgba(148, 163, 184, 0.12);
+}
+
+.demand-forecast-insight-item {
+  display: grid;
+  align-content: start;
+  gap: 6px;
+  min-height: 68px;
+  padding: 9px 12px 10px;
+  background: #ffffff;
+}
+
+.demand-forecast-insight-item > span {
+  margin-bottom: 2px;
+}
+
+.demand-forecast-insight-item > span::before {
+  content: "";
+  width: 3px;
+  height: 12px;
+  margin-right: 6px;
+  border-radius: 999px;
+  background: #94a3b8;
+}
+
+.demand-forecast-insight-item--risk > span::before {
+  background: #ef4444;
+}
+
+.demand-forecast-insight-item--good > span::before {
+  background: #16a34a;
+}
+
+.demand-forecast-insight-item strong {
+  color: #0f172a;
+  font-size: 13px;
+  line-height: 1.45;
+  font-weight: 650;
+}
+
+.demand-forecast-insight-item--risk strong {
+  color: #9f1d1d;
+}
+
+.demand-forecast-insight-item--good strong {
+  color: #166534;
+}
+
+.demand-forecast-toolbar-block {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.demand-forecast-summary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 28px;
+}
+
+.demand-forecast-summary-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 120px;
+}
+
+.demand-forecast-summary-label {
+  font-size: 13px;
+}
+
+.demand-forecast-summary-values {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+}
+
+.demand-forecast-summary-current {
+  font-size: 20px;
+  font-weight: 600;
+  color: #1677ff;
+}
+
+.demand-forecast-summary-predicted {
+  font-size: 13px;
+  font-weight: 500;
+  color: #faad14;
+}
+
+.demand-forecast-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+@media (max-width: 992px) {
+  .demand-forecast-insight-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .demand-forecast-grid {
+    grid-template-columns: 1fr;
+  }
+}
