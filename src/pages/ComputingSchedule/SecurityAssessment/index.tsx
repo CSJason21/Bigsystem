@@ -70,7 +70,10 @@ const NoniidHeatmapPanel: React.FC<{ data: import('./types').NonIIDDistribution 
 const SecurityAssessment: React.FC = () => {
   const data = SECURITY_DATA;
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const focusedTaskId = searchParams.get('taskId');
   const { currentTask, updateCurrentTask, completeCurrentTask } = useTaskFlowStore();
+  const [activeSecurityTab, setActiveSecurityTab] = useState(focusedTaskId ? 'task' : 'system');
   const [selectedAlgo, setSelectedAlgo] = React.useState(currentTask?.selectedAlgorithm || 'Bulyan');
   const [feedbackResult, setFeedbackResult] = React.useState<any>(null);
   const { algorithm_strategy: algo } = data;
@@ -78,13 +81,33 @@ const SecurityAssessment: React.FC = () => {
   const [chatOpen, setChatOpen] = useState(false);
   const [detailDrawer, setDetailDrawer] = useState<{ title: string; content: React.ReactNode } | null>(null);
 
+  useEffect(() => {
+    if (focusedTaskId) setActiveSecurityTab('task');
+  }, [focusedTaskId]);
+
+  // 聚焦任务：优先从 URL taskId 匹配，其次用 store 中的 currentTask
+  const focusedTask = useMemo<FlowTask | null>(() => {
+    if (!focusedTaskId) return currentTask;
+    if (currentTask?.id === focusedTaskId) return currentTask;
+    const task = data.task_security.find(item => item.task_id === focusedTaskId);
+    if (!task) return null;
+    return {
+      id: task.task_id,
+      name: task.task_name,
+      type: task.model_type,
+      priority: 'normal',
+      stage: task.status === 'completed' ? 'completed' : 'running',
+      selectedAlgorithm: task.aggregation,
+    };
+  }, [currentTask, data.task_security, focusedTaskId]);
+
   const taskSecurityScore = useMemo(() => {
-    if (!currentTask) return null;
-    const algoProfile = algo.convergence_curves.find(c => c.method === (currentTask.selectedAlgorithm || selectedAlgo));
+    if (!focusedTask) return null;
+    const algoProfile = algo.convergence_curves.find(c => c.method === (focusedTask.selectedAlgorithm || selectedAlgo));
     const algoAccuracy = algoProfile ? algoProfile.data[algoProfile.data.length - 1]?.accuracy * 100 : 85;
     const algorithmScore = Math.round(algoAccuracy);
     const dataScore = 87;
-    const networkScore = currentTask.targetNode ? 82 : 79;
+    const networkScore = focusedTask.targetNode ? 82 : 79;
     const systemScore = 76;
     const overall = Math.round(dataScore * 0.30 + algorithmScore * 0.25 + networkScore * 0.25 + systemScore * 0.20);
     const grade = overall >= 90 ? 'A' : overall >= 85 ? 'A-' : overall >= 80 ? 'B+' : overall >= 70 ? 'B' : 'C';
@@ -95,11 +118,11 @@ const SecurityAssessment: React.FC = () => {
       dataScore,
       networkScore,
       systemScore,
-      algorithm: currentTask.selectedAlgorithm || selectedAlgo,
-      targetNode: currentTask.targetNode || '未分配',
-      taskName: currentTask.name,
+      algorithm: focusedTask.selectedAlgorithm || selectedAlgo,
+      targetNode: focusedTask.targetNode || '未分配',
+      taskName: focusedTask.name,
     };
-  }, [currentTask, selectedAlgo, algo.convergence_curves]);
+  }, [focusedTask, selectedAlgo, algo.convergence_curves]);
 
   const currentCurves = useMemo(() => algo.convergence_curves.map((c) => ({ ...c, selected: c.method === selectedAlgo })), [algo.convergence_curves, selectedAlgo]);
   const convergenceOption = useMemo(() => {

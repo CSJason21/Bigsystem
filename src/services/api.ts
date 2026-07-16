@@ -18,11 +18,31 @@ api.interceptors.request.use(
 // 响应拦截器
 api.interceptors.response.use(
   (response) => response.data,
-  (error) => {
+  async (error) => {
     // 取消请求不报错
     if (axios.isCancel(error) || error?.code === 'ERR_CANCELED' || error?.name === 'CanceledError') {
       return Promise.reject(error);
     }
+
+    // ===== 自动重试：超时 / 500 / 502 / 503（后端重启中） =====
+    const config = error.config;
+    const isRetryable =
+      config &&
+      !config._isRetry &&
+      (error.code === 'ECONNABORTED' ||
+       error.code === 'ETIMEDOUT' ||
+       [500, 502, 503, 504].includes(error.response?.status));
+
+    if (isRetryable) {
+      config._retryCount = (config._retryCount || 0) + 1;
+      if (config._retryCount <= 3) {
+        const delay = config._retryCount * 1500; // 1.5s → 3s → 4.5s
+        await new Promise((r) => setTimeout(r, delay));
+        config._isRetry = true;
+        return api.request(config);
+      }
+    }
+
     console.error('API Error:', error);
     return Promise.reject(error);
   },

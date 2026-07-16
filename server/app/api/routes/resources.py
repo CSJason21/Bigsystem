@@ -69,7 +69,7 @@ def _mock_node(node_id: str):
 
 
 @router.get("/resources/nodes")
-@cached(ttl=30, key_prefix="resources")
+@cached(ttl=30, key_prefix="resources_nodes")
 async def get_nodes():
     """获取所有计算节点及其资源使用情况"""
     try:
@@ -106,14 +106,14 @@ async def get_nodes():
 
 
 @router.get("/resources/nodes/{node_id}")
-@cached(ttl=30, key_prefix="resources")
+@cached(ttl=30, key_prefix="resources_node_detail")
 async def get_node_detail(node_id: str):
     """获取单个节点详细信息"""
     return _mock_node(node_id)
 
 
 @router.get("/resources/nodes/{node_id}/history")
-@cached(ttl=60, key_prefix="resources")
+@cached(ttl=60, key_prefix="resources_node_history")
 async def get_node_history(
     node_id: str,
     metric: str = "cpu_usage",
@@ -132,7 +132,7 @@ async def get_node_history(
 
 
 @router.get("/resources/topology")
-@cached(ttl=120, key_prefix="resources")
+@cached(ttl=120, key_prefix="resources_topology")
 async def get_topology():
     """获取网络拓扑数据"""
     nodes = [
@@ -148,7 +148,7 @@ async def get_topology():
 
 
 @router.get("/resources/load")
-@cached(ttl=30, key_prefix="resources")
+@cached(ttl=30, key_prefix="resources_load")
 async def get_system_load():
     """获取系统负载概览"""
     return {
@@ -169,7 +169,7 @@ async def get_system_load():
 # =========================
 
 @router.get("/resources/usage")
-@cached(ttl=60, key_prefix="resources")
+@cached(ttl=60, key_prefix="resources_usage")
 async def get_resource_usage():
     """获取资源占比数据（饼图）"""
     try:
@@ -206,7 +206,7 @@ async def get_resource_usage():
 
 
 @router.get("/resources/trend")
-@cached(ttl=120, key_prefix="resources")
+@cached(ttl=120, key_prefix="resources_trend")
 async def get_resource_trend():
     """获取资源动态趋势数据（折线图）"""
     try:
@@ -286,7 +286,7 @@ async def get_resource_trend():
 
 
 @router.get("/resources/map")
-@cached(ttl=300, key_prefix="resources")
+@cached(ttl=300, key_prefix="resources_map")
 async def get_map_nodes():
     """获取全国算力节点分布数据"""
     try:

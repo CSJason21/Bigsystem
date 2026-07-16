@@ -71,15 +71,20 @@ start_backend() {
         > "$BACK_LOG" 2>&1 &
     disown $! 2>/dev/null || true
     echo $! > "$BACK_PID_FILE"
-    # 等待就绪
-    for i in $(seq 1 30); do
-        port_in_use "$BACK_PORT" && break
+    # 等待健康检查通过（而非仅端口监听）
+    local ready=false
+    for i in $(seq 1 40); do
+        # 先检查健康检查接口
+        if curl -sf --max-time 2 "http://localhost:$BACK_PORT/health" >/dev/null 2>&1; then
+            ready=true
+            break
+        fi
         sleep 1
     done
-    if port_in_use "$BACK_PORT"; then
-        info "后端已启动 -> http://localhost:$BACK_PORT  (PID $(cat "$BACK_PID_FILE"))"
+    if $ready; then
+        info "后端已就绪 -> http://localhost:$BACK_PORT  (PID $(cat "$BACK_PID_FILE"))"
     else
-        error "后端启动失败，查看日志: $BACK_LOG"
+        error "后端启动超时（健康检查未通过），查看日志: $BACK_LOG"
         tail -n 20 "$BACK_LOG" 2>/dev/null || true
         return 1
     fi
